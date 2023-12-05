@@ -39,5 +39,5 @@ The UI was taken from a code pen project:
 
 In this demo link you will find two web components:
 
-- [<coin-tracker>](https://github.com/GinoCaputo/web-component)
-- [<simple-sample>](https://github.com/GinoCaputo/wc-counter)
+- [coin-tracker](https://github.com/GinoCaputo/web-component)
+- [simple-sample](https://github.com/GinoCaputo/wc-counter)
