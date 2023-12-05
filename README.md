@@ -17,7 +17,7 @@ npm run build
 ```
 # wc-counter
 
-An counter example of web component developed with Vue 3 and Pinia. 
+A counter example of web component developed with Vue 3 and Pinia. 
 
 The state management was taking as a guideline this tutorial:
 
@@ -41,3 +41,7 @@ In this demo link you will find two web components:
 
 - [coin-tracker](https://github.com/GinoCaputo/web-component)
 - [simple-sample](https://github.com/GinoCaputo/wc-counter)
+
+# Vue Devtools
+
+![Demo Image](demo/src/assets/devtool-state.jpg)
