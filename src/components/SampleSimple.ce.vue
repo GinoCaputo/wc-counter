@@ -128,5 +128,5 @@ const submitForm = () => {
   </div>
 </template>
 
-<style scoped>
+<style>
 </style>
