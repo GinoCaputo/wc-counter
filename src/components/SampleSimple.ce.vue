@@ -1,9 +1,5 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
-const props = defineProps<{
-    showErrors?: boolean
-}>();
-
 const emit = defineEmits(['validation-error']);
 
 const form = reactive({
@@ -106,7 +102,7 @@ const submitForm = () => {
 
 <template>
   <div class="container">
-    <slot name="header"></slot>
+    <h2>tokenization Form</h2>
     <form @submit.prevent="submitForm">
       <!-- Name Field -->
       <div class="mb-4">
@@ -145,7 +141,6 @@ const submitForm = () => {
         <button>Try tokenization</button>
       </div>
     </form>
-    <slot name="footer"></slot>
 
   </div>
 </template>
