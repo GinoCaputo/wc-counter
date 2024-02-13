@@ -131,11 +131,13 @@ const submitForm = () => {
         <input type="text" id="expirationDate" v-model="form.expirationDate" @input="maskExpirationDate"  @blur="validateExpirationDate"
               :class="{'border-red-500': validationErrors.expirationDate}" required>
       </div>
+      <hr>
       <div class="error-info">
-        <p v-if="validationErrors.name">{{ validationErrors.name }}</p>
-        <p v-if="validationErrors.cardNumber">{{ validationErrors.cardNumber }}</p>
-        <p v-if="validationErrors.cvc">{{ validationErrors.cvc }}</p>
-        <p v-if="validationErrors.expirationDate">{{ validationErrors.expirationDate }}</p>
+        <h3>Error feedback</h3>
+        <p class="text-red-500" v-if="validationErrors.name">{{ validationErrors.name }}</p>
+        <p class="text-red-500" v-if="validationErrors.cardNumber">{{ validationErrors.cardNumber }}</p>
+        <p class="text-red-500" v-if="validationErrors.cvc">{{ validationErrors.cvc }}</p>
+        <p class="text-red-500" v-if="validationErrors.expirationDate">{{ validationErrors.expirationDate }}</p>
       </div>
       <div>
         <button>Try tokenization</button>
