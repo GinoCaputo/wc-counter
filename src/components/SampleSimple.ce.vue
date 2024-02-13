@@ -131,7 +131,6 @@ const submitForm = () => {
         <input type="text" id="expirationDate" v-model="form.expirationDate" @input="maskExpirationDate"  @blur="validateExpirationDate"
               :class="{'border-red-500': validationErrors.expirationDate}" required>
       </div>
-      <hr>
       <div class="error-info">
         <h3>Error feedback</h3>
         <p class="text-red-500" v-if="validationErrors.name">{{ validationErrors.name }}</p>
