@@ -3,13 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>web comp checker</title>
+    <title>Tokenization Form</title>
   </head>
   <body>
-    <simple-sample></simple-sample>
+    <div style="width: 500px;">
+      <simple-sample showErrors="true" >
+        <div slot="header">header</div>
+        <div slot="footer">footer</div>
 
-    <!-- <script src="https://web-component-silk.vercel.app/coin-tracker.umd.js"></script> -->
-    <!-- <script src="./dist/simple-sample.umd.js"></script> -->
+      </simple-sample>
+    </div>
     <script src="https://wc-counter.vercel.app/simple-sample.umd.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const simpleSample = document.querySelector('simple-sample');
+        simpleSample.addEventListener('validation-error', (event) => {
+          // Handle the validation error
+          console.log(event.detail); // Contains field and message
+        });
+      });
+    </script>
   </body>
 </html>

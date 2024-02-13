@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
+const props = defineProps<{
+    showErrors?: boolean
+}>();
+
+const emit = defineEmits(['validation-error']);
 
 const form = reactive({
   name: '',
@@ -23,17 +28,25 @@ const validateCardNumber = () => {
     validationErrors.cardNumber = '';
   } else {
     validationErrors.cardNumber = 'Card number must be between 13 to 19 digits';
+    emit('validation-error', { field: 'cardNumber', message: validationErrors.cardNumber });
   }
 };
 // Name validation logic
 const validateName = () => {
   validationErrors.name = form.name.trim().length > 0 ? '' : 'Name is required';
+  if (validationErrors.name !== '') {
+    emit('validation-error', { field: 'name', message: validationErrors.name });
+}
+
 };
 
 // CVC validation logic
 const validateCVC = () => {
   const cvcPattern = /^\d{3,4}$/;
   validationErrors.cvc = cvcPattern.test(form.cvc) ? '' : 'CVC must be 3 or 4 digits';
+  if (validationErrors.cvc !== '') {
+  emit('validation-error', { field: 'cvc', message: validationErrors.cvc });
+}
 };
 
 // Expiration date validation logic
@@ -46,8 +59,11 @@ const validateExpirationDate = () => {
     const expMonth = Number(matches[1]) - 1; // Convert string to number and adjust month for 0 index
     const expDate = new Date(Number(`20${expYear}`), expMonth);
     validationErrors.expirationDate = (expDate > today) ? '' : 'Expiration date must be in the future';
+    emit('validation-error', { field: 'expirationDate', message: validationErrors.expirationDate });
   } else {
     validationErrors.expirationDate = 'Expiration date must be in MM/YY format';
+    emit('validation-error', { field: 'expirationDate', message: validationErrors.expirationDate });
+
   }
 }
 const filterNumeric = (event) => {
@@ -90,22 +106,20 @@ const submitForm = () => {
 
 <template>
   <div class="container">
-    <h2>Tokenization form</h2>
+    <slot name="header"></slot>
     <form @submit.prevent="submitForm">
       <!-- Name Field -->
       <div class="mb-4">
         <label for="name" class="label">Name</label>
         <input type="text" id="name" v-model.trim="form.name" @blur="validateName"
               :class="{'border-red-500': validationErrors.name}" required>
-        <p v-if="validationErrors.name">{{ validationErrors.name }}</p>
       </div>
 
       <!-- CC Field -->
       <div class="mb-4">
-        <label for="cvc" class="label">Credit Card</label>
-        <input type="number" placeholder="Credit Card" v-model.trim="form.cardNumber" @blur="validateCardNumber"
+        <label for="cc" class="label">Credit Card</label>
+        <input type="number" id="cc" v-model.trim="form.cardNumber" @blur="validateCardNumber"
                :class="{'border-red-500': validationErrors.cardNumber}" required>
-        <p v-if="validationErrors.cardNumber">{{ validationErrors.cardNumber }}</p>
       </div>
 
       <!-- CVC Field -->
@@ -113,7 +127,6 @@ const submitForm = () => {
         <label for="cvc" class="label">CVC</label>
         <input type="text" id="cvc" v-model="form.cvc" @input="filterNumeric" @blur="validateCVC"
               :class="{'border-red-500': validationErrors.cvc}" required>
-        <p v-if="validationErrors.cvc">{{ validationErrors.cvc }}</p>
       </div>
 
       <!-- Expiration Date Field -->
@@ -121,10 +134,19 @@ const submitForm = () => {
         <label for="expirationDate" class="label">Expiration date</label>
         <input type="text" id="expirationDate" v-model="form.expirationDate" @input="maskExpirationDate"  @blur="validateExpirationDate"
               :class="{'border-red-500': validationErrors.expirationDate}" required>
+      </div>
+      <div class="error-info">
+        <p v-if="validationErrors.name">{{ validationErrors.name }}</p>
+        <p v-if="validationErrors.cardNumber">{{ validationErrors.cardNumber }}</p>
+        <p v-if="validationErrors.cvc">{{ validationErrors.cvc }}</p>
         <p v-if="validationErrors.expirationDate">{{ validationErrors.expirationDate }}</p>
       </div>
-      <button>Try tokenization</button>
+      <div>
+        <button>Try tokenization</button>
+      </div>
     </form>
+    <slot name="footer"></slot>
+
   </div>
 </template>
 

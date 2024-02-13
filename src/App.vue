@@ -4,6 +4,8 @@ import SampleSimpleComponent from './components/SampleSimple.ce.vue'
 
 <template>
   <SampleSimpleComponent></SampleSimpleComponent>
+  <simple-sample showErrors="true" ></simple-sample>
+
 </template>
 
 
